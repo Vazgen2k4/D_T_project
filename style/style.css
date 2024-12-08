@@ -1,0 +1,363 @@
+/* Variables - Пременные
+========================================================================= */
+:root {
+    /* Ширина контейнера (Воодить без учета внутрених отступов) */
+    --containerWidth: 1120px;
+    /* Осноыной цвет текста */
+    --primaryColor: #333;
+    /* Основной цвет заголовков */
+    --titleColor: #333;
+    /* Основной шрифт текста */
+    --primaryFont: 'Arial';
+    /* Основной шрифт Заголовков */
+    --titleFont: 'Arial';
+    /* Цвет навигации */
+    --navBgColor: #D7D7D7;
+
+    /* Ширина кнопок (для центирования пригодиться) */
+    --navButtonsWidth: 66px;
+    --navHeight: 66px;
+
+    --borderColor: #797979;
+    --buttonTextColor: black;
+
+}
+
+/* Начальные обнуляющие стили
+========================================================================= */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: var(--primaryFont);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--titleFont);
+    color: var(--titleColor);
+}
+
+.container {
+    width: 100%;
+    max-width: calc(var(--containerWidth) + 30px);
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.btn {
+    overflow: unset;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+
+    padding: 15px 36px;
+    border-radius: 5px;
+
+    border: 1px solid var(--borderColor);
+    background: transparent;
+    color: var(--buttonTextColor);
+
+    transition: background 0.2s ease-in-out, color 0.2s ease,  transform 0.2s ease-in-out;
+}
+
+
+.btn._negative {
+    color: white;
+    background: #000;
+}
+
+.btn:hover {
+    background: var(--buttonTextColor);
+    color: white;
+
+    transform: scale(.9);
+
+}
+
+
+.btn._negative:hover {
+    background: white;
+    color: var(--buttonTextColor);
+}
+
+#menu {
+    display: none;
+}
+
+body:has(#menu:checked) {
+    overflow: hidden;
+}
+
+/* Navigation - Навигиционная панель сайта
+========================================================================= */
+.nav {
+    width: 100%;
+    background: var(--navBgColor);
+    position: sticky;
+    top: 0;
+    left: 0;
+}
+
+.nav__content {
+    width: 100%;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 0;
+
+}
+
+.nav__buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    max-width: var(--navButtonsWidth);
+}
+
+.nav__button {
+    width: 25px;
+    height: 25px;
+
+    border-radius: 5px;
+    border: 1px solid var(--primaryColor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.nav__button:hover {
+    transform: scale(.9);
+}
+
+
+.nav__button._burger {
+    padding: 0px 5px;
+    flex-direction: column;
+    gap: 2px;
+
+    position: relative;
+}
+
+.nav__button>image {
+    width: 100%;
+}
+
+._burger>span._line {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: black;
+    border-radius: 2px;
+
+    transition: all .2s linear;
+}
+
+#menu:checked+label ._line:first-child {
+    position: absolute;
+    display: flex;
+    transform: rotate(45deg) scale(0.8);
+}
+
+#menu:checked+label ._line:last-child {
+    position: absolute;
+    display: flex;
+    transform: rotate(-45deg) scale(0.8);
+
+}
+
+#menu:checked+label ._line:nth-child(2) {
+    opacity: 0;
+}
+
+
+.logo {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 32px;
+    color: var(--titleColor);
+}
+
+.auth__buttons {
+    display: block;
+    width: var(--navButtonsWidth);
+}
+
+.auth__button {
+    display: none;
+}
+
+
+
+
+.nav__menu {
+    position: fixed;
+    top: var(--navHeight);
+    left: -100%;
+    height: calc(100vh - var(--navHeight));
+    width: 100%;
+
+    background: transparent;
+    
+    transition: left .2s linear, background .4s linear;
+}
+
+.nav:has(#menu:checked) .nav__menu {
+    left: 0;
+    
+    background: rgba(0, 0, 0, 0.713);
+}
+
+.nav__menu-content {
+    display: flex;
+    flex-direction: column;
+
+    padding: 10px 12px;
+    background: white;
+    max-width: 375px;
+    height: inherit;
+
+    gap: 10px;
+}
+
+.seach__form {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    gap: 10px;
+
+}
+
+.seach__form-input {
+    flex-grow: 1;
+    padding: 5px;
+}
+
+.seach__form-btn {
+    aspect-ratio: 1;
+    width: unset;
+    height: 100%;
+}
+
+.nav__menu-buttons {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+}
+
+.nav__menu-button {
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+
+
+.nav__list {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    width: 100%;
+    gap: 6px;
+    margin-top: 20px;
+}
+
+
+.nav__list-link {
+    display: flex;
+    justify-content: center;
+    border: 1px solid var(--primaryColor);
+    padding: 17px;
+    font-size: 13px;
+    text-transform: capitalize;
+    color: var(--primaryColor);
+    width: 100%;
+    height: 100%;
+    
+    transition: transform 0.2s ease-in-out;
+}
+
+.nav__list-link:hover {
+    transform: scale(1.05);
+}
+
+
+/* Header - Шапка сайта
+========================================================================= */
+.header {
+    width: 100%;
+}
+
+.header__content {
+    width: 100%;
+}
+
+/* Main - контент сайта
+========================================================================= */
+.main {
+    width: 100%;
+    flex-grow: 1;
+}
+
+.main__content {
+    width: 100%;
+}
+
+/* Footer - Подвал сайта
+========================================================================= */
+.footer {
+    width: 100%;
+}
+
+.footer__content {
+    width: 100%;
+}
+
+
+
+/* desctop */
+@media (min-width: 992px) {
+    .auth__buttons {
+        display: flex;
+        width: auto;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .auth__button {
+        display: flex;
+        text-transform: uppercase;
+        font-size: 13px;
+    }
+
+    .logo {
+        position: absolute;
+
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
