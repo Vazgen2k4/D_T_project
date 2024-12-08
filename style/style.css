@@ -20,7 +20,8 @@
 
     --borderColor: #797979;
     --buttonTextColor: black;
-
+    --sectionColor: #F2F2F2;
+    --arrowSymbol: "⮞";
 }
 
 /* Начальные обнуляющие стили
@@ -72,7 +73,7 @@ h6 {
     background: transparent;
     color: var(--buttonTextColor);
 
-    transition: background 0.2s ease-in-out, color 0.2s ease,  transform 0.2s ease-in-out;
+    transition: background 0.2s ease-in-out, color 0.2s ease, transform 0.2s ease-in-out;
 }
 
 
@@ -84,9 +85,7 @@ h6 {
 .btn:hover {
     background: var(--buttonTextColor);
     color: white;
-
     transform: scale(.9);
-
 }
 
 
@@ -111,6 +110,7 @@ body:has(#menu:checked) {
     position: sticky;
     top: 0;
     left: 0;
+    z-index: 100;
 }
 
 .nav__content {
@@ -143,7 +143,6 @@ body:has(#menu:checked) {
     display: flex;
     justify-content: center;
     align-items: center;
-
 
     transition: transform 0.3s ease-in-out;
     cursor: pointer;
@@ -211,8 +210,6 @@ body:has(#menu:checked) {
 }
 
 
-
-
 .nav__menu {
     position: fixed;
     top: var(--navHeight);
@@ -221,13 +218,13 @@ body:has(#menu:checked) {
     width: 100%;
 
     background: transparent;
-    
+
     transition: left .2s linear, background .4s linear;
 }
 
 .nav:has(#menu:checked) .nav__menu {
     left: 0;
-    
+
     background: rgba(0, 0, 0, 0.713);
 }
 
@@ -275,7 +272,6 @@ body:has(#menu:checked) {
 }
 
 
-
 .nav__list {
     display: flex;
     flex-grow: 1;
@@ -296,7 +292,7 @@ body:has(#menu:checked) {
     color: var(--primaryColor);
     width: 100%;
     height: 100%;
-    
+
     transition: transform 0.2s ease-in-out;
 }
 
@@ -313,23 +309,122 @@ body:has(#menu:checked) {
 
 .header__content {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
 }
+
+.header__list {
+    display: none;
+}
+
+.header__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding-top: 20px;
+}
+
+
+
+.main__title {
+    font-weight: 600;
+    /* https://clamp.font-size.app/ */
+    font-size: clamp(1.375rem, 1.2213rem + 0.6557vw, 2rem);
+    text-align: center;
+    width: 100%;
+    max-width: 286px;
+}
+
+.post .descr {
+    font-size: clamp(0.8125rem, 0.7664rem + 0.1967vw, 1rem);
+    text-align: center;
+}
+
+.post__image {
+    transition: transform 0.2s ease-in-out;
+    width: 100%;
+    display: block;
+}
+
+.post__image:hover {
+    transform: scale(0.95);
+}
+
+.post__image>img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.post__title {
+    text-align: center;
+}
+
 
 /* Main - контент сайта
 ========================================================================= */
 .main {
     width: 100%;
     flex-grow: 1;
+    /* margin: 100px 0; */
 }
 
 .main__content {
     width: 100%;
 }
 
+section.section {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0 40px;
+    position: relative;
+}
+
+section.section::before {
+    content: '';
+    display: block;
+
+    width: 100%;
+
+    height: 3px;
+    background: var(--primaryColor);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.section__title {
+    font-weight: 600;
+    font-size: clamp(0.8125rem, 0.7049rem + 0.459vw, 1.25rem);
+    display: flex;
+   
+    align-items: center;
+    width: max-content;
+    gap: 10px;
+}
+
+.section__title::after {
+    content: var(--arrowSymbol);
+}
+
 /* Footer - Подвал сайта
 ========================================================================= */
 .footer {
     width: 100%;
+    
+    padding: 100px 0 ;
+    
+    margin: 100px 0 ;
+    border: 3px red dashed;
 }
 
 .footer__content {
@@ -337,6 +432,41 @@ body:has(#menu:checked) {
 }
 
 
+
+@media (min-width: 640px) {
+    .main__post {
+        grid-column: 2 span;
+    }
+}
+
+@media (min-width: 768px) { 
+    .only__content {
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+    }
+}
+
+@media (min-width: 950px) {
+
+    .header__grid {
+        grid-template-columns: repeat(3, minmax(300px, 1fr));
+        column-gap: 35px;
+        row-gap: 10px;
+    }
+
+    .main__post {
+        grid-column: 2 / 2 span;
+        grid-row: 1 / 2 span;
+        justify-content: space-between;
+    }
+
+    .main__title {
+        max-width: unset;
+    }
+
+
+}
 
 /* desctop */
 @media (min-width: 992px) {
@@ -360,4 +490,34 @@ body:has(#menu:checked) {
         left: 50%;
         transform: translateX(-50%);
     }
+
+    .header__list {
+        display: flex;
+        margin-bottom: 20px;
+        justify-content: center;
+    }
+
+    .header__list-link {
+        display: block;
+        color: var(--primaryColor);
+        font-size: 13px;
+        border: 1px solid var(--primaryColor);
+        padding: 16px 32px;
+        transition: color 0.2s ease-in-out, background 0.2s ease-in-out, transform 0.2s ease-in-out;
+    }
+
+    .header__list-link:hover {
+        color: white;
+        background: var(--primaryColor);
+        transform: scale(0.9);
+    }
+
+    ._section__bg {
+        background: var(--sectionColor);
+        padding: 30px;
+
+        border-left: 1px solid var(--primaryColor);
+        border-right: 1px solid var(--primaryColor);
+    }
+
 }
