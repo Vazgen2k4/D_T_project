@@ -2,9 +2,10 @@
 ========================================================================= */
 :root {
     /* Ширина контейнера (Воодить без учета внутрених отступов) */
-    --containerWidth: 1120px;
+    --containerWidth: 1320px;
     /* Осноыной цвет текста */
     --primaryColor: #333;
+    --primaryColorWithOpacity: rgba(51, 51, 51, 0.23);
     /* Основной цвет заголовков */
     --titleColor: #333;
     /* Основной шрифт текста */
@@ -22,6 +23,8 @@
     --buttonTextColor: black;
     --sectionColor: #F2F2F2;
     --arrowSymbol: "⮞";
+
+    --hoverColor: rgb(85, 85, 237);
 }
 
 /* Начальные обнуляющие стили
@@ -100,6 +103,14 @@ h6 {
 
 body:has(#menu:checked) {
     overflow: hidden;
+}
+
+a {
+    transition: color .2s ease-in-out;
+}
+
+a:hover {
+    color: var(--hoverColor);
 }
 
 /* Navigation - Навигиционная панель сайта
@@ -324,16 +335,18 @@ body:has(#menu:checked) {
     gap: 15px;
 }
 
-.post {
+
+
+.post__link {
     display: flex;
+    height: 100%;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     gap: 15px;
     padding-top: 20px;
+
 }
-
-
 
 .main__title {
     font-weight: 600;
@@ -342,11 +355,17 @@ body:has(#menu:checked) {
     text-align: center;
     width: 100%;
     max-width: 286px;
+    transition: color .2s ease-in-out;
+
 }
+
+
 
 .post .descr {
     font-size: clamp(0.8125rem, 0.7664rem + 0.1967vw, 1rem);
     text-align: center;
+    transition: color .2s ease-in-out;
+
 }
 
 .post__image {
@@ -355,7 +374,7 @@ body:has(#menu:checked) {
     display: block;
 }
 
-.post__image:hover {
+.post__link:hover .post__image {
     transform: scale(0.95);
 }
 
@@ -366,6 +385,20 @@ body:has(#menu:checked) {
 
 .post__title {
     text-align: center;
+    transition: color .2s ease-in-out;
+}
+
+.post__link:hover .descr,
+.post__link:hover .post__title {
+    color: var(--hoverColor);
+}
+
+
+.post__link .post__txt {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
 }
 
 
@@ -388,7 +421,8 @@ section.section {
     position: relative;
 }
 
-section.section::before {
+section.section::before,
+section.section.ai::after {
     content: '';
     display: block;
 
@@ -402,11 +436,17 @@ section.section::before {
     left: 0;
 }
 
+section.section.ai::after {
+    top: unset;
+
+    bottom: 0;
+}
+
 .section__title {
     font-weight: 600;
     font-size: clamp(0.8125rem, 0.7049rem + 0.459vw, 1.25rem);
     display: flex;
-   
+
     align-items: center;
     width: max-content;
     gap: 10px;
@@ -416,20 +456,152 @@ section.section::before {
     content: var(--arrowSymbol);
 }
 
+.more__grid {
+    margin-top: 50px;
+
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+    border-top: 3px solid var(--primaryColor);
+    gap: 30px;
+}
+
+
+
+.ai__grid {
+    border-top: 3px solid var(--primaryColor);
+    padding-top: 30px;
+    margin-top: 50px;
+
+    display: grid;
+
+    grid-template-columns: repeat(1, 1fr);
+    gap: 30px;
+}
+
+.ai__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px;
+
+    width: 100%;
+}
+
+.category {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.category:not(:first-child) {
+    border-top: 3px solid var(--primaryColor);
+    padding-top: 20px;
+}
+
+.ai__grid-post {
+    padding-bottom: 20px;
+}
+
+.ai__grid-post:not(:last-child) {
+    border-bottom: 4px solid var(--primaryColorWithOpacity);
+}
+
 /* Footer - Подвал сайта
 ========================================================================= */
 .footer {
     width: 100%;
-    
-    padding: 100px 0 ;
-    
-    margin: 100px 0 ;
-    border: 3px red dashed;
+
 }
 
 .footer__content {
     width: 100%;
+    
 }
+
+
+.footer__section {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+.footer__section:first-child {
+    border-bottom: 3px solid var(--primaryColor);
+}
+
+.footer__logo {
+    text-align: center;
+    align-self: center;
+    margin-bottom: 30px;
+}
+
+.footer__nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer__nav-link {
+    color: var(--primaryColor);
+    font-size: clamp(0.875rem, 0.8135rem + 0.2623vw, 1.125rem);
+    font-weight: 600;
+}
+
+.footer__title {
+    font-size: clamp(0.875rem, 0.8135rem + 0.2623vw, 1.125rem);
+}
+
+
+.footer__social-list {
+    display: flex;
+    width: 100%;
+    gap: 24px;
+    
+    
+}
+
+.social__list-link {
+    margin: 25px 0;
+    display: flex;
+    width: 25px;
+    height: 25px;
+    
+    transition: transform 0.3s ease-in-out;
+}
+
+.social__list-link:hover {
+    transform: scale(1.1);
+}
+
+.social__list-link
+>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+
+.tech__list {
+    display: flex;
+    row-gap: 10px;
+    column-gap: 40px;
+    flex-wrap: wrap;
+    
+    margin-bottom: 30px;
+}
+
+.tech__list-link {
+    color: var(--primaryColor);
+    font-size: clamp(0.75rem, 0.6578rem + 0.3934vw, 1.125rem);
+    font-weight: 600;
+}
+
+
+
+
 
 
 
@@ -437,21 +609,107 @@ section.section::before {
     .main__post {
         grid-column: 2 span;
     }
+    
+    
+    .footer {
+        background: var(--navBgColor);
+    }
+    
+    .tech__list, .footer__nav-list {
+        flex-direction: row;
+    }
+    
+    .footer .footer__section {
+        border: unset;
+    }
 }
 
-@media (min-width: 768px) { 
+@media (min-width: 768px) {
     .only__content {
         display: flex;
         justify-content: space-between;
         gap: 30px;
     }
+
+
+    .post__link._big {
+        flex-direction: row-reverse;
+        align-items: stretch;
+        gap: 40px;
+        position: relative;
+    }
+
+    .sport__content .post__link._big {
+        flex-direction: row;
+    }
+
+    .section:not(.sport, .ai) .post__link._big::after {
+        content: '';
+        display: block;
+
+        position: absolute;
+
+        height: 1px;
+        width: 100%;
+        background: var(--primaryColor);
+
+        bottom: 2px;
+        left: 0;
+    }
+
+    .post__txt,
+    .post__link._big .post__image {
+        width: 50%;
+    }
+
+    .sport .post__link._big .post__image,
+    .ai .post__link._big .post__image {
+        width: 65%;
+    }
+
+    .sport .post__link._big .post__txt,
+    .ai .post__link._big .post__txt {
+        width: 35%;
+    }
+
+    .post__txt .post__title,
+    .post__txt .descr {
+        text-align: left;
+    }
+
+    .post__txt .descr {
+        flex-grow: 1;
+    }
+
+    .ai__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    section.section .category {
+        row-gap: 30px;
+        grid-template-columns: 1fr;
+        border-top: 3px solid var(--primaryColor);
+        padding-top: 10px;
+    }
+
+    .ai__grid-title {
+        margin-bottom: -20px;
+    }
+
+
+    .category .ai__grid-post {
+        border-bottom: 4px solid var(--primaryColorWithOpacity);
+    }
+
 }
 
 @media (min-width: 950px) {
 
+
+
     .header__grid {
-        grid-template-columns: repeat(3, minmax(300px, 1fr));
-        column-gap: 35px;
+        grid-template-columns: repeat(3, minmax(280px, 1fr));
+        column-gap: 30px;
         row-gap: 10px;
     }
 
@@ -465,7 +723,15 @@ section.section::before {
         max-width: unset;
     }
 
+    .more__grid {
 
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .more__grid .descr {
+        padding: 0 15px;
+        text-align: left;
+    }
 }
 
 /* desctop */
