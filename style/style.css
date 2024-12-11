@@ -322,7 +322,6 @@ a:hover {
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 30px;
 }
 
 .header__list {
@@ -723,6 +722,10 @@ section.section.ai::after {
     .more__grid .descr {
         padding: 0 15px;
         text-align: left;
+    }
+    
+    .header__content {
+        padding: 30px;
     }
 }
 
